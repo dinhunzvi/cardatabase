@@ -1,9 +1,6 @@
 package com.example.cardatabase.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Car {
@@ -20,10 +17,15 @@ public class Car {
     private int manufacturedYear;
     private int price;
 
+    @ManyToOne( fetch = FetchType.LAZY )
+    @JoinColumn( name = "owner" )
+    private Owner owner;
+
     public Car() {
     }
 
-    public Car(String brand, String model, String color, String registerNumber, int manufacturedYear, int price ) {
+    public Car(String brand, String model, String color, String registerNumber, int manufacturedYear, int price,
+               Owner owner ) {
         super();
         this.brand = brand;
         this.model = model;
@@ -31,6 +33,7 @@ public class Car {
         this.registerNumber = registerNumber;
         this.manufacturedYear = manufacturedYear;
         this.price = price;
+        this.owner = owner;
     }
 
     public String getBrand() {
@@ -79,6 +82,14 @@ public class Car {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
 }

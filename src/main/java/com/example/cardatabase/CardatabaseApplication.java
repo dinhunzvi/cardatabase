@@ -2,12 +2,16 @@ package com.example.cardatabase;
 
 import com.example.cardatabase.domain.Car;
 import com.example.cardatabase.domain.CarRepository;
+import com.example.cardatabase.domain.Owner;
+import com.example.cardatabase.domain.OwnerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
 
 @SpringBootApplication
 public class CardatabaseApplication implements CommandLineRunner {
@@ -16,20 +20,31 @@ public class CardatabaseApplication implements CommandLineRunner {
 
     @Autowired
     private CarRepository repository;
+
+    @Autowired
+    private OwnerRepository ownerRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(CardatabaseApplication.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-        repository.save( new Car( "Ford", "Mustang", "Red", "ADF-1121",
-                2021, 59000 ) );
+        Owner owner1 = new Owner( "Douglas", "Nhunzvi" );
 
-        repository.save( new Car( "Nissan", "Leaf", "White", "SSJ-3002",
-                2019, 29000 ) );
+        Owner owner2 = new Owner( "Phylis", "Matsate" );
 
-        repository.save( new Car( "Toyota", "Prius", "Silver", "KK0-0212",
-                2020, 39000 ) );
+        ownerRepository.saveAll(Arrays.asList( owner1, owner2 ) );
+
+        Car ford = new Car( "Ford", "Mustang", "Red", "ADF-1121",
+                2021, 59000, owner1 );
+        Car nissan = new Car( "Nissan", "Leaf", "White", "SSJ-3002",
+                2019, 29000, owner2 );
+
+        Car toyota = new Car( "Toyota", "Prius", "Silver", "KK0-0212",
+                2020, 39000,owner2 );
+
+        repository.saveAll( Arrays.asList( ford, nissan, toyota )  );
 
         // fetch all cars and log to console
         for( Car car : repository.findAll()) {
