@@ -1,0 +1,27 @@
+app:
+  dbHostName: localhost
+  dbPort: 3306
+  dbUsername: car_manager
+  dbPassword: mut+whsEKU27G=d)<$J{~@
+  dbName: carsdb
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${app.dbHostName}:${app.dbPort}/${app.dbName}?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Africa/Harare&autoReconnect=true&allowPublicKeyRetrieval=true
+    username: ${app.dbUsername}
+    password: ${app.dbPassword}
+    testWhileIdle: true
+    validationQuery: SELECT 1
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        storage_engine: innodb
+
+
