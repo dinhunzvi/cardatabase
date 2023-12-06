@@ -2,6 +2,9 @@ package com.dinbytech.cardatabase.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 public class Car {
     @Id
@@ -10,17 +13,21 @@ public class Car {
 
     private String brand, model,color, registrationNumber;
 
-    private int year_manufacture, price;
+    private int yearmanufacture, price;
+
+
+    @ManyToMany(mappedBy = "cars")
+    private Set<Owner> owners = new HashSet<Owner>();
 
     public Car() {
     }
 
-    public Car(String brand, String model, String color, String registrationNumber, int year, int price) {
+    public Car(String brand, String model, String color, String registrationNumber, int yearmanufacture, int price) {
         this.brand = brand;
         this.model = model;
         this.color = color;
         this.registrationNumber = registrationNumber;
-        this.year_manufacture = year;
+        this.yearmanufacture = yearmanufacture;
         this.price = price;
     }
 
@@ -64,12 +71,12 @@ public class Car {
         this.registrationNumber = registrationNumber;
     }
 
-    public int getYear_manufacture() {
-        return year_manufacture;
+    public int getYearmanufacture() {
+        return yearmanufacture;
     }
 
-    public void setYear_manufacture(int year) {
-        this.year_manufacture = year;
+    public void setYearmanufacture(int year) {
+        this.yearmanufacture = year;
     }
 
     public int getPrice() {
@@ -78,5 +85,13 @@ public class Car {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Set<Owner> getOwners() {
+        return owners;
+    }
+
+    public void setOwners(Set<Owner> owners) {
+        this.owners = owners;
     }
 }
