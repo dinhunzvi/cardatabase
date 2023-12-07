@@ -30,15 +30,6 @@ public class CardatabaseApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// add new owners and save to database
-		Owner owner1 = new Owner("Douglas", "Nhunzvi");
-		Owner owner2 = new Owner("Kevin", "Smith");
-
-		ownerRepository.saveAll(Arrays.asList( owner1, owner2));
-		Car car1 = new Car("Ford", "Mustang", "Red", "ADF-1121", 2021, 59000, owner2);
-		Car car2 = new Car("Nissan", "Leaf", "White", "SSJ-3302", 2019, 29000, owner2);
-		Car car3 = new Car("Toyota", "Prius", "Silver", "KKO-0212", 2020, 39000, owner1);
-		carRepository.saveAll(Arrays.asList(car1, car2, car3));
 
 		// fetch all cars and log to console
 		for( Car car : carRepository.findAll()) {
